@@ -8,7 +8,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const deviceId = localStorage.getItem('deviceId');
-    console.log(deviceId);
+
     if (deviceId) {
       config.headers['X-Device-Id'] = deviceId;
     }

@@ -24,7 +24,7 @@ import {
 import { formatDistanceToNowStrict } from 'date-fns';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { LinkDetails } from './analytics';
+import { LinkDetails } from './link-details';
 import { toast } from 'sonner';
 import type { ShortUrl } from '@/hooks/server/useGetUserLinks';
 
@@ -43,7 +43,12 @@ export function LinkRow({ link }: { link: ShortUrl }) {
     return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
 
-  const copyToClipboard = async () => {
+  const copyToClipboard = async (
+    e:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
     await navigator.clipboard.writeText(`${link.shortUrl}`);
     toast.success('Copied to clipboard');
   };
@@ -58,15 +63,17 @@ export function LinkRow({ link }: { link: ShortUrl }) {
     <>
       {isMobile ? (
         <Drawer open={isAnalyticsOpen} onOpenChange={setIsAnalyticsOpen}>
-          <DrawerContent className='max-h-[85vh]  h-[90vh]'>
-            <div className='max-w-md mx-auto px-4'>
-              <DrawerHeader className='pt-10 border-b'>
-                <DrawerTitle>Analytics for {link.shortUrl}</DrawerTitle>
+          <DrawerContent className='  h-[90vh]'>
+            <div className='lg:max-w-md overflow-auto w-full mx-auto px-4'>
+              <DrawerHeader className='md:pt-10 border-b px-0'>
+                <DrawerTitle>
+                  Analytics for {isMobile ? link.shortcode : link.shortUrl}
+                </DrawerTitle>
                 <DrawerDescription>
                   Detailed analytics and insights for your shortened link
                 </DrawerDescription>
               </DrawerHeader>
-              <div className='overflow-y-auto pb-8 p-'>
+              <div className='pb-8'>
                 <LinkDetails link={link} />
               </div>
             </div>
@@ -90,19 +97,23 @@ export function LinkRow({ link }: { link: ShortUrl }) {
           </SheetContent>
         </Sheet>
       )}
-      <div className='flex items-center justify-between p-3 md:p-4 hover:bg-primary-foreground border-b last:border-b-0'>
+      <div
+        onClick={handleViewAnalytics}
+        className='flex items-center justify-between p-3 md:p-4 hover:bg-primary-foreground border-b last:border-b-0'
+      >
         <div className='flex items-center gap-2'>
           <div className='flex items-center'>
-            <Avatar className='size-8 mr-2 hidden lg:block'>
+            <Avatar className='size-6 md:size-8 mr-2'>
               <AvatarImage src={link.metaTags.favicon} alt='Profile' />
               <AvatarFallback>{fallbackLetter}</AvatarFallback>
             </Avatar>
             <a
+              onClick={(e) => e.stopPropagation()}
               target='_blank'
               href={link.shortUrl}
               className='font-semibold text-base hover:border-b-2 border-foreground'
             >
-              {link.shortUrl}
+              {isMobile ? link.shortcode : link.shortUrl}
             </a>
             <Button
               variant='ghost'
@@ -115,17 +126,18 @@ export function LinkRow({ link }: { link: ShortUrl }) {
             </Button>
           </div>
           <span className='text-gray-500'>→</span>
-          <span className='text-gray-500 truncate w-72'>
+
+          <span className='text-gray-500 max-w-18 truncate lg:max-w-96'>
             {link.originalUrl}
           </span>
         </div>
         <div className='flex items-center gap-4 '>
           <div className='md:flex items-center gap-1 hidden'>
             <span className='text-sm text-gray-500 border px-2 py-1 rounded-md'>
-              {link.clicks} clicks
+              {link.clicks} {link.clicks > 1 ? 'clicks' : 'click'}
             </span>
           </div>
-          <span className='text-muted-foreground text-sm font-medium'>
+          <span className='text-muted-foreground hidden mb:block text-sm font-medium'>
             {formatDistanceToNowStrict(link.createdAt)}
           </span>
           <DropdownMenu>
@@ -136,13 +148,11 @@ export function LinkRow({ link }: { link: ShortUrl }) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
-              <DropdownMenuItem>Copy link</DropdownMenuItem>
-              <DropdownMenuItem>Edit link</DropdownMenuItem>
+              <DropdownMenuItem onClick={copyToClipboard}>
+                Copy link
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={handleViewAnalytics}>
                 View analytics
-              </DropdownMenuItem>
-              <DropdownMenuItem className='text-destructive'>
-                Delete link
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

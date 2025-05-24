@@ -3,6 +3,19 @@ import api from '@/lib/api';
 import { QUERY_KEYS } from './const';
 import { AxiosErrorValidate } from '@/lib/utils';
 
+export type Visit = {
+  timestamp: string;
+  country: string;
+  city: string;
+  referrer: string;
+  deviceType: string;
+  browser: string;
+  os: string;
+  platform: string;
+  ip: string;
+  _id: string;
+};
+
 export interface ShortUrl {
   id: string;
   shortcode: string;
@@ -19,18 +32,7 @@ export interface ShortUrl {
     favicon?: string;
     ogImage?: string;
   };
-  visits: {
-    timestamp: Date;
-    country?: string;
-    city?: string;
-    referrer?: string;
-    deviceType?: string;
-    browser?: string;
-    os?: string;
-    platform?: string;
-    ip?: string;
-    id: string;
-  }[];
+  visits: Visit[];
 }
 
 const fetchUrl = async (id: string) => {

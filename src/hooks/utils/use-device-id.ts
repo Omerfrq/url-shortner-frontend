@@ -1,18 +1,9 @@
 import { useState, useEffect } from 'react';
 
-/**
- * Custom hook to get or create a unique device ID
- * @returns {string | null} The device ID or null if not available yet
- */
 export function useDeviceId(): string | null {
   const [deviceId, setDeviceId] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if we're in a browser environment
-    if (typeof window === 'undefined') {
-      return;
-    }
-
     try {
       // Try to get existing deviceId from localStorage
       let id = localStorage.getItem('deviceId');

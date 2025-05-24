@@ -1,13 +1,21 @@
 import { Link, Outlet } from 'react-router-dom';
+import Avatar from 'boring-avatars';
+import { useDeviceId } from '@/hooks/utils/use-device-id';
 
 const Navigation = () => {
+  const deviceId = useDeviceId();
+
   return (
     <header className='sticky top-0 bg-background border-b backdrop-blur-md  dark:bg-background/80 z-10'>
       <div className='max-w-7xl mx-auto flex h-16 items-center p-3 lg:p-6 justify-between'>
         <Link to='/' className='flex items-center gap-2'>
-          <span className='font-bold'>Company</span>
+          <span className='font-extrabold'>SMI.TO</span>
         </Link>
-        <div className='flex items-center gap-4'>Avatar</div>
+        {deviceId ? (
+          <div className='flex items-center gap-4'>
+            <Avatar className='h-8 w-8' name={deviceId} />
+          </div>
+        ) : null}
       </div>
     </header>
   );
