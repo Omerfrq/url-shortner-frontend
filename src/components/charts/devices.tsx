@@ -87,15 +87,15 @@ export const Devices = ({ data }: { data?: ShortUrl }) => {
   const [currentTab, setCurrentTab] = useState('Devices');
 
   const platforms =
-    data && data.visits.length > 1 ? getVisitCountByPlatform(data.visits) : [];
+    data && data.visits.length >= 1 ? getVisitCountByPlatform(data.visits) : [];
 
   const browserStats =
-    data && data.visits.length > 1 ? getBrowserStats(data.visits) : [];
+    data && data.visits.length >= 1 ? getBrowserStats(data.visits) : [];
 
   const osStats = data && data.visits.length > 1 ? getOSStats(data.visits) : [];
 
   const referrerStats =
-    data && data.visits.length > 1 ? getReferrerStats(data.visits) : [];
+    data && data.visits.length >= 1 ? getReferrerStats(data.visits) : [];
   return (
     <Card className='px-4 pt-1 min-h-96'>
       <CardContent className='p-0'>

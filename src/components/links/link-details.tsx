@@ -106,18 +106,18 @@ export const LinkDetails = ({ link }: { link: ShortUrl }) => {
     );
   }
 
-  // if (!isPending && logs?.length === 0) {
-  //   return (
-  //     <div className='text-center'>
-  //       <h3 className='mt-2 text-sm font-semibold text-gray-900'>
-  //         No Events Yet!
-  //       </h3>
-  //       <p className='mt-1 text-sm text-gray-500'>
-  //         Events will show up when the shortlink is clicked.
-  //       </p>
-  //     </div>
-  //   );
-  // }
+  if (!isPending && logs?.length === 0) {
+    return (
+      <div className='text-center'>
+        <h3 className='mt-2 text-sm font-semibold text-gray-900'>
+          No Events Yet!
+        </h3>
+        <p className='mt-1 text-sm text-gray-500'>
+          Events will show up when the shortlink is clicked.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -142,32 +142,45 @@ export const LinkDetails = ({ link }: { link: ShortUrl }) => {
       </div>
       {currentTab === 'Events' ? (
         <div className={'mt-6 space-y-6 border rounded-md'}>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Browser</TableHead>
-                <TableHead>OS</TableHead>
-                <TableHead>Device</TableHead>
-                <TableHead>Referrer</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {logs?.map((visit) => (
+          {logs?.length === 0 ? (
+            <div className='text-center'>
+              <h3 className='mt-2 text-sm font-semibold text-gray-900'>
+                No Events Yet!
+              </h3>
+              <p className='mt-1 text-sm text-gray-500'>
+                Events will show up when the shortlink is clicked.
+              </p>
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
                 <TableRow>
-                  <TableCell>
-                    {new Date(visit.timestamp).toLocaleString()}
-                  </TableCell>
-                  <TableCell className='capitalize'>{visit.browser}</TableCell>
-                  <TableCell className='capitalize'>{visit.os}</TableCell>
-                  <TableCell className='capitalize'>
-                    {visit.deviceType}
-                  </TableCell>
-                  <TableCell>{visit.referrer}</TableCell>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Browser</TableHead>
+                  <TableHead>OS</TableHead>
+                  <TableHead>Device</TableHead>
+                  <TableHead>Referrer</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {logs?.map((visit) => (
+                  <TableRow key={visit._id}>
+                    <TableCell>
+                      {new Date(visit.timestamp).toLocaleString()}
+                    </TableCell>
+                    <TableCell className='capitalize'>
+                      {visit.browser}
+                    </TableCell>
+                    <TableCell className='capitalize'>{visit.os}</TableCell>
+                    <TableCell className='capitalize'>
+                      {visit.deviceType}
+                    </TableCell>
+                    <TableCell>{visit.referrer}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </div>
       ) : currentTab === 'Preview' ? (
         <div className='my-10 w-full lg:max-w-sm mx-auto'>
