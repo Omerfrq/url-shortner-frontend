@@ -2,24 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 import { QUERY_KEYS } from './const';
 import { AxiosErrorValidate } from '@/lib/utils';
-
-export interface ShortUrl {
-  id: string;
-  shortcode: string;
-  domain: string;
-  deviceId: string;
-  originalUrl: string;
-  clicks: number;
-  createdAt: Date;
-  updatedAt: Date;
-  shortUrl: string;
-  metaTags: {
-    title?: string;
-    description?: string;
-    favicon?: string;
-    ogImage?: string;
-  };
-}
+import type { ShortUrl } from '@/types/link';
 
 const fetchUrls = async () => {
   try {

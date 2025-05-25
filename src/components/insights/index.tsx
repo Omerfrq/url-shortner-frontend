@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Card, CardContent } from '../ui/card';
-import type { ShortUrl, Visit } from '@/hooks/server/useGetLinkDetails';
+import type { Visit } from '@/types/link';
 
 function getBrowserStats(visits: Visit[]) {
   const browserCounts: Record<string, number> = {};
@@ -83,19 +83,19 @@ const tabs = [
   },
 ];
 
-export const Devices = ({ data }: { data?: ShortUrl }) => {
+export const Insights = ({ visits }: { visits?: Visit[] }) => {
   const [currentTab, setCurrentTab] = useState('Devices');
 
   const platforms =
-    data && data.visits.length >= 1 ? getVisitCountByPlatform(data.visits) : [];
+    visits && visits?.length >= 1 ? getVisitCountByPlatform(visits) : [];
 
   const browserStats =
-    data && data.visits.length >= 1 ? getBrowserStats(data.visits) : [];
+    visits && visits?.length >= 1 ? getBrowserStats(visits) : [];
 
-  const osStats = data && data.visits.length > 1 ? getOSStats(data.visits) : [];
+  const osStats = visits && visits?.length > 1 ? getOSStats(visits) : [];
 
   const referrerStats =
-    data && data.visits.length >= 1 ? getReferrerStats(data.visits) : [];
+    visits && visits.length >= 1 ? getReferrerStats(visits) : [];
   return (
     <Card className='px-4 pt-1 min-h-96'>
       <CardContent className='p-0'>

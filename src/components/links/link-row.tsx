@@ -26,7 +26,7 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LinkDetails } from './link-details';
 import { toast } from 'sonner';
-import type { ShortUrl } from '@/hooks/server/useGetUserLinks';
+import type { ShortUrl } from '@/types/link';
 
 export function LinkRow({ link }: { link: ShortUrl }) {
   const [isMobile, setIsMobile] = useState(false);

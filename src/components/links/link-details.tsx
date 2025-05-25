@@ -1,4 +1,3 @@
-import type { ShortUrl } from '@/hooks/server/useGetUserLinks';
 import { useGetLinkDetails } from '@/hooks/server/useGetLinkDetails';
 import {
   Table,
@@ -14,9 +13,10 @@ import { useState } from 'react';
 
 const tabs = [{ name: 'Events' }, { name: 'Preview' }, { name: 'Insights' }];
 
-import { Devices } from '../insights/devices';
+import { Insights } from '../insights';
 import { MetaTagPreview } from '../meta-tags/preview';
 import { LinkEvents } from '../events/link-events';
+import type { ShortUrl } from '@/types/link';
 
 export const LinkDetails = ({ link }: { link: ShortUrl }) => {
   const { data: details, isPending } = useGetLinkDetails({ id: link.id });
@@ -90,7 +90,7 @@ export const LinkDetails = ({ link }: { link: ShortUrl }) => {
         </div>
       ) : currentTab === 'Insights' ? (
         <div className='mt-10  gap-4'>
-          <Devices data={details} />
+          <Insights visits={details?.visits} />
         </div>
       ) : null}
     </div>
