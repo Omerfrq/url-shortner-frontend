@@ -9,9 +9,9 @@ import { Toaster } from 'sonner';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
-    <DeviceIdInitalizer />
-    <Toaster />
     <ThemeProvider>
+      <DeviceIdInitalizer />
+      <Toaster />
       <ReactQueryProvider>
         <App />
       </ReactQueryProvider>

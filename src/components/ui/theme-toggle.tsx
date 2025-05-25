@@ -7,7 +7,7 @@ export function ThemeToggle() {
 
   return (
     <div>
-      <Button onClick={() => setTheme('light')}>Default</Button>
+      <Button onClick={() => setTheme('light')}>Light</Button>
       <Button onClick={() => setTheme('dark')}>Dark</Button>
     </div>
   );

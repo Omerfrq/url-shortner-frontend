@@ -2,13 +2,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export const LinkRowSkeleton = () => {
   return (
-    <div className='flex items-center justify-between p-4 border-b last:border-b-0'>
+    <div className='flex items-center overflow-hidden w-full justify-between p-4 border-b last:border-b-0'>
       <div className='flex items-center gap-2'>
         <div className='flex items-center'>
           {/* Avatar skeleton */}
           <Skeleton className='h-6 w-6 rounded-full mr-2' />
           {/* Short URL skeleton */}
-          <Skeleton className='h-4 w-32' />
+          <Skeleton className='h-4 w-32 hidden lg:block' />
           {/* Copy button skeleton */}
           <Skeleton className='h-6 w-6 ml-1' />
         </div>

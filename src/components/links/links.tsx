@@ -10,7 +10,7 @@ export const Links = () => {
 
   if (isPending) {
     return (
-      <div className=' border rounded-lg mb-10 mx-auto bg-background'>
+      <div className=' border rounded-lg mb-10 w-full mx-auto bg-background'>
         <LinkRowSkeleton />
         <LinkRowSkeleton />
         <LinkRowSkeleton />
