@@ -1,4 +1,4 @@
-import type { Visit } from '@/hooks/server/useGetLinkDetails';
+import type { Visit } from '@/types/link';
 import {
   Table,
   TableHeader,
