@@ -20,8 +20,7 @@ A simple and modern URL Shortener built with a clean and intuitive UI. This tool
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React, Tailwind CSS, TypeScript
-- **Backend (optional):** [Add details if applicable]
+- **Frontend:** React, Vite, Tailwind CSS, Shadcn, TypeScript
 - **Hosting:** Vercel
 
 ---
