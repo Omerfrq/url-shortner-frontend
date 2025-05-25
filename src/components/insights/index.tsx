@@ -92,7 +92,7 @@ export const Insights = ({ visits }: { visits?: Visit[] }) => {
   const browserStats =
     visits && visits?.length >= 1 ? getBrowserStats(visits) : [];
 
-  const osStats = visits && visits?.length > 1 ? getOSStats(visits) : [];
+  const osStats = visits && visits?.length >= 1 ? getOSStats(visits) : [];
 
   const referrerStats =
     visits && visits.length >= 1 ? getReferrerStats(visits) : [];
